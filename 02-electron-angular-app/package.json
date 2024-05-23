@@ -2,8 +2,9 @@
   "name": "02-electron-angular-app",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
+    "start": "npx electron .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

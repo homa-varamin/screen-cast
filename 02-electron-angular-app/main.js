@@ -11,7 +11,7 @@ function createWindow() {
     },
   });
 
-  mainWindow.loadURL(`file://${__dirname}/screen-cast-angular/dist/screen-cast-angular/index.html`);
+  mainWindow.loadURL(`file://${__dirname}/screen-cast-angular/dist/screen-cast-angular/browser/index.html`);
 
   mainWindow.on("closed", () => {
     mainWindow = null;
