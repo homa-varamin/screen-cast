@@ -3,13 +3,15 @@
     "start": "nodemon"
   },
   "dependencies": {
+    "@types/screenshot-desktop": "^1.12.3",
     "express": "4.19.2",
+    "screenshot-desktop": "^1.15.0",
     "typescript": "5.4.5"
   },
   "devDependencies": {
-    "dotenv-extended": "2.9.0",
     "@types/express": "4.17.21",
     "@types/node": "20.12.8",
+    "dotenv-extended": "2.9.0",
     "nodemon": "3.1.0",
     "ts-node": "10.9.2"
   }
