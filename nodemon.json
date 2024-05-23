@@ -1,0 +1,10 @@
+{
+  "watch": ["src"],
+  "ext": "ts,json",
+  "ignore": ["tests/**/*.spec.ts"],
+  "exec": "node --inspect=0.0.0.0:9229 -r dotenv-extended/config ./node_modules/ts-node/dist/bin.js src/app.ts",
+  "envFiles": [
+    ".env",
+    ".env.production"
+  ]
+}
