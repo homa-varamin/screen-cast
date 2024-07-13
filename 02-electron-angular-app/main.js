@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require("electron");
+import { app, BrowserWindow } from 'electron';
 
 let mainWindow;
 
@@ -9,9 +9,10 @@ function createWindow() {
     webPreferences: {
       nodeIntegration: true,
     },
+    autoHideMenuBar: true,
   });
 
-  mainWindow.loadURL(`file://${__dirname}/screen-cast-angular/dist/screen-cast-angular/browser/index.html`);
+  mainWindow.loadURL("http://localhost:4200");
 
   mainWindow.on("closed", () => {
     mainWindow = null;
