@@ -1,4 +1,5 @@
 import { app, BrowserWindow } from 'electron';
+import { myExpress } from './app.js';
 
 let mainWindow;
 
@@ -17,6 +18,8 @@ function createWindow() {
   mainWindow.on("closed", () => {
     mainWindow = null;
   });
+
+  myExpress.start()
 }
 
 app.on("ready", createWindow);
@@ -32,3 +35,5 @@ app.on("activate", () => {
     createWindow();
   }
 });
+
+

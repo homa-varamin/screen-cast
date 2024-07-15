@@ -12,7 +12,11 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@angular/cli": "^18.0.0",
-    "electron": "^30.0.7"
+    "electron": "30.0.7"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "node-webcam": "^0.8.2"
   }
 }
