@@ -3,13 +3,13 @@ import { RouterOutlet } from '@angular/router';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { catchError, finalize, of, tap } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { UserListComponent } from './features/_01-user-list/user-list/user-list.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HttpClientModule, CommonModule],
+  imports: [RouterOutlet, HttpClientModule, CommonModule, UserListComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
 })
 export class AppComponent {
   title = 'screen-cast-angular';

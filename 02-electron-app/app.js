@@ -9,7 +9,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const app = express();
 app.use(cors());
-const port = 3000;
+const port = 32768;
 
 const webcamOptions = {
   width: 1280,
