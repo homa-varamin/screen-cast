@@ -2,5 +2,5 @@ export const environment = {
   production: true,
 
   APP_BASE_HREF: '/angular/',
-  port: 0,
+  appPort: 32768,
 };

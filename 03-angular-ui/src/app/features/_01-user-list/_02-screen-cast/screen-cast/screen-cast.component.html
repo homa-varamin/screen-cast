@@ -1,0 +1,16 @@
+<div>
+  <h2>Monitors</h2>
+  <ul>
+    <li *ngFor="let monitor of monitorService.monitors">
+      {{ monitor }} <button (click)="startStream(monitor)">Stream</button>
+    </li>
+  </ul>
+
+  <div *ngIf="streamUrl">
+    <h2>Streaming</h2>
+    <video width="1280" height="720" controls autoplay>
+      <source [src]="streamUrl" type="application/vnd.apple.mpegurl">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+</div>

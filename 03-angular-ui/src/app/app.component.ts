@@ -1,21 +1,19 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { catchError, finalize, of, tap } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { UserListComponent } from './features/_01-user-list/user-list/user-list.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HttpClientModule, CommonModule, UserListComponent],
+  imports: [RouterOutlet, CommonModule, UserListComponent],
   templateUrl: './app.component.html',
 })
 export class AppComponent {
   title = 'screen-cast-angular';
   imageUrl!: string | undefined;
 
-  constructor(private http: HttpClient, private chREf: ChangeDetectorRef) {}
+  constructor(private chREf: ChangeDetectorRef) {}
 
   onClick() {
     fetch('http://localhost:3000/capture')
