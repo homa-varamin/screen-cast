@@ -1,5 +1,5 @@
 import { app, BrowserWindow } from 'electron';
-import { myExpress } from './app.js';
+import { appPort, myExpress } from './app.js';
 
 let mainWindow;
 
@@ -13,7 +13,7 @@ function createWindow() {
     autoHideMenuBar: true,
   });
 
-  mainWindow.loadURL("http://localhost:4200");
+  mainWindow.loadURL(`http://localhost:${appPort}/angular`);
 
   mainWindow.on("closed", () => {
     mainWindow = null;

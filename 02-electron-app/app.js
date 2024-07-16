@@ -3,13 +3,12 @@ import express from "express";
 import path from "path";
 import cors from "cors";
 import { fileURLToPath } from "url";
-// Enable CORS for all origins
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const app = express();
 app.use(cors());
-const port = 32768;
+export const appPort = 32768;
 
 const webcamOptions = {
   width: 1280,
@@ -26,12 +25,10 @@ const webcam = NodeWebcam.create(webcamOptions);
 
 app.use(express.static("public"));
 
-// Define a route for the root URL (/)
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-// Define a route to capture an image
 app.get("/capture", (req, res) => {
   const imgPath = path.resolve(__dirname, "public/capture.jpg");
 
@@ -44,8 +41,8 @@ app.get("/capture", (req, res) => {
   });
 });
 
-app.listen(port, () => {
-  console.log(`App listening at http://localhost:${port}`);
+app.listen(appPort, () => {
+  console.log(`App listening at http://localhost:${appPort}`);
 });
 
 export const myExpress = {};
