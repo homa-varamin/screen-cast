@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { UserModel } from './models/user.model';
 import { FormsModule } from '@angular/forms';
-import { MonitorService } from '../_02-screen-cast/screen-cast/services/monitor.service';
+import { ScreenStreamService } from '../_02-screen-cast/screen-cast/services/screen-stream.service';
 
 @Component({
   selector: 'app-user-list',
@@ -11,9 +11,9 @@ import { MonitorService } from '../_02-screen-cast/screen-cast/services/monitor.
   templateUrl: './user-list.component.html',
 })
 export class UserListComponent {
-  userList: UserModel[] = [];
+  userList: UserModel[] = [{ name: '', ip: 'localhost'/* '192.168.137.1' */ }];
 
-  constructor(private monitorService: MonitorService) {
+  constructor(private streamService: ScreenStreamService) {
     (window as any).userListComponent = this;
   }
 
@@ -26,6 +26,6 @@ export class UserListComponent {
   }
 
   onWatch(user: UserModel) {
-    this.monitorService.setMonitors(user.ip);
+    this.streamService.setIP(user.ip);
   }
 }

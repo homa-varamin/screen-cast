@@ -1,6 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { MonitorService } from './services/monitor.service';
+import {
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
+import { ScreenStreamService } from './services/screen-stream.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-screen-cast',
@@ -8,14 +15,32 @@ import { MonitorService } from './services/monitor.service';
   imports: [CommonModule],
   templateUrl: './screen-cast.component.html',
 })
-export class ScreenCastComponentimplements {
-  streamUrl: string | null = null;
+export class ScreenCastComponent implements OnDestroy {
+  @ViewChild('imagePlayer')
+  imagePlayer!: ElementRef<HTMLImageElement>;
+  private streamSubscription!: Subscription;
+  imageUrl!: string;
 
-  constructor(public monitorService: MonitorService) {}
+  constructor(private screenService: ScreenStreamService) {
+    this.startStreaming();
+  }
 
-  startStream(monitorId: string): void {
-    this.monitorService.startStream(monitorId).subscribe((data) => {
-      this.streamUrl = data.streamUrl;
-    });
+  startStreaming(): void {
+    this.streamSubscription = this.screenService.streamScreenImage().subscribe(
+      (imageBlob: Blob) => {
+        const imageUrl = URL.createObjectURL(imageBlob);
+        this.imageUrl = imageUrl;
+        this.imagePlayer.nativeElement.src = imageUrl;
+      },
+      (error) => {
+        console.error('Error streaming screen image:', error);
+      }
+    );
+  }
+
+  ngOnDestroy(): void {
+    if (this.streamSubscription) {
+      this.streamSubscription.unsubscribe();
+    }
   }
 }

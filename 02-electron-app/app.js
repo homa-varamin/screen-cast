@@ -4,7 +4,7 @@ import path from "path";
 import cors from "cors";
 import { fileURLToPath } from "url";
 import screen from "screenshot-desktop";
-import sharp from 'sharp'; // For image processing
+import sharp from "sharp"; // For image processing
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -43,29 +43,23 @@ app.get("/capture", (req, res) => {
   });
 });
 
-// Endpoint to stream screen capture
-app.get('/stream', async (req, res) => {
+app.get("/stream", async (req, res) => {
   try {
     const imgBuffer = await screen({
-      format: 'jpeg', // Capture in JPEG format
-      quality: 100,   // Highest quality (0-100)
+      format: "jpeg",
+      quality: 100,
     });
 
-    // Compress the image using sharp
-    const compressedImgBuffer = await sharp(imgBuffer)
-      .jpeg({ quality: 30 }) // Adjust JPEG quality (0-100)
-      .toBuffer();
+    const compressedImgBuffer = await sharp(imgBuffer).jpeg({ quality: 30 }).toBuffer();
 
-    // Set headers for streaming response
-    res.set('Content-Type', 'image/jpeg'); // Set content type to JPEG
-    res.set('Cache-Control', 'no-cache');
-    res.set('Connection', 'keep-alive');
+    res.set("Content-Type", "image/jpeg");
+    res.set("Cache-Control", "no-cache");
+    res.set("Connection", "keep-alive");
 
-    // Send the compressed screen image as the response
     res.send(compressedImgBuffer);
   } catch (err) {
-    console.error('Error capturing screen:', err);
-    res.status(500).send('Error capturing screen');
+    console.error("Error capturing screen:", err);
+    res.status(500).send("Error capturing screen");
   }
 });
 

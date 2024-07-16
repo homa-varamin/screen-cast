@@ -13,7 +13,8 @@ function createWindow() {
     autoHideMenuBar: true,
   });
 
-  mainWindow.loadURL(`http://localhost:${appPort}/angular`);
+  /* mainWindow.loadURL(`http://localhost:${appPort}/angular`); */
+  mainWindow.loadURL(`http://localhost:4200`);
 
   mainWindow.on("closed", () => {
     mainWindow = null;

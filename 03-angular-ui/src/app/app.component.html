@@ -1,6 +1,7 @@
 <style>
   :host {
-    display: block;
+    display: flex;
+    gap: 5px;
     width: 100%;
     height: 100%;
     overflow: hidden;
@@ -11,5 +12,8 @@
 </style>
 
 <app-user-list></app-user-list>
+
+
+<app-screen-cast *ngIf="streamService.ip"></app-screen-cast>
 
 <router-outlet />

@@ -1,16 +1,16 @@
-<div>
-  <h2>Monitors</h2>
-  <ul>
-    <li *ngFor="let monitor of monitorService.monitors">
-      {{ monitor }} <button (click)="startStream(monitor)">Stream</button>
-    </li>
-  </ul>
+<style>
+  :host {
+    display: flex;
+    gap: 5px;
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+</style>
 
-  <div *ngIf="streamUrl">
-    <h2>Streaming</h2>
-    <video width="1280" height="720" controls autoplay>
-      <source [src]="streamUrl" type="application/vnd.apple.mpegurl">
-      Your browser does not support the video tag.
-    </video>
-  </div>
+
+
+
+<div style="width: 100%;height: 100%;border: 1px dashed black;background-color: rgb(53, 130, 158);padding: 5px;box-sizing: border-box;">
+  <img #imagePlayer [src]="imageUrl" style="width: 100%; height: 100%;" />
 </div>

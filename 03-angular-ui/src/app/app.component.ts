@@ -2,41 +2,17 @@ import { ChangeDetectorRef, Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { UserListComponent } from './features/_01-user-list/user-list/user-list.component';
+import { ScreenCastComponent } from './features/_01-user-list/_02-screen-cast/screen-cast/screen-cast.component';
+import { ScreenStreamService } from './features/_01-user-list/_02-screen-cast/screen-cast/services/screen-stream.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CommonModule, UserListComponent],
+  imports: [RouterOutlet, CommonModule, UserListComponent, ScreenCastComponent],
   templateUrl: './app.component.html',
 })
 export class AppComponent {
   title = 'screen-cast-angular';
-  imageUrl!: string | undefined;
 
-  constructor(private chREf: ChangeDetectorRef) {}
-
-  onClick() {
-    fetch('http://localhost:3000/capture')
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.blob();
-      })
-      .then((blob) => {
-        const reader = new FileReader();
-        reader.onloadend = () => {
-          this.imageUrl = reader.result as string;
-        };
-        reader.readAsDataURL(blob);
-      })
-      .catch((error) => {
-        console.error('Error occurred:', error);
-        // Handle errors as needed
-      })
-      .finally(() => {
-        // Optional: Perform cleanup or set default image URL
-        this.imageUrl = 'http://localhost:3000/capture.jpg';
-      });
-  }
+  constructor(public streamService: ScreenStreamService) {}
 }
