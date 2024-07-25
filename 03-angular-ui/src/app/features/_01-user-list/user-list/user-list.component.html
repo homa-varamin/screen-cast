@@ -1,0 +1,36 @@
+<style>
+  :host {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 20rem;
+    height: 100%;
+    background-color: rgb(139, 198, 44);
+    padding: 5px;
+    border: 1px dashed black;
+    box-sizing: border-box;
+  }
+
+  .app-disbale {
+    opacity: 0.3;
+    pointer-events: none;
+  }
+</style>
+
+
+<div (click)="addUser()"
+  style="cursor: pointer;width: 2rem;height: 2rem;display: flex;justify-content: center;align-items: center;background-color: lightblue;border: 1px dashed black;">
+  +
+</div>
+
+<div *ngFor="let item of userList"
+  style="width: 100%;background-color: lightblue;height: max-content;border: 1px dashed black;box-sizing: border-box;padding: 5px 5px;display: flex;justify-content: center; align-items: start;gap: 10px;">
+  <div style="display: flex;flex-direction: column;width: 100%;gap:5px;">
+    <input placeholder="IP" type="text" [(ngModel)]="item.ip" style="width: 100%; padding: 0px; height: 2rem;">
+  </div>
+  <div style="display: flex;flex-direction: column;width: max-content;gap: 5px;">
+    <div [ngClass]="{'app-disbale': !item.ip}" (click)="onWatch(item)"
+      style="display: flex;justify-content: center;align-items: center;background-color: rgb(10, 147, 85);height: 2rem;border: 1px dashed black;padding: 0px 5px;cursor: pointer;">
+      Watch</div>
+  </div>
+</div>
