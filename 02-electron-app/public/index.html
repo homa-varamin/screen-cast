@@ -2,14 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Live Screen Stream</title>
+    <title>HLS Stream</title>
+    <link href="https://vjs.zencdn.net/7.11.4/video-js.css" rel="stylesheet" />
 </head>
 <body>
-    <h1>Live Screen Stream</h1>
-    <video id="video" controls autoplay style="width: 100%; max-width: 800px;">
-        <source src="http://localhost:3000/stream" type="video/mp4">
-        Your browser does not support the video tag.
+    <video id="video" class="video-js vjs-default-skin" controls autoplay width="600" height="400">
+        <source src="http://localhost:8080/hls/output.m3u8" type="application/x-mpegURL">
     </video>
+    <script src="https://vjs.zencdn.net/7.11.4/video.js"></script>
 </body>
 </html>

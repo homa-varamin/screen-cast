@@ -1,94 +1,38 @@
-import NodeWebcam from "node-webcam";
-import express from "express";
-import path from "path";
-import cors from "cors";
-import { fileURLToPath } from "url";
-import fs from "fs";
-import http from 'http';
+import NodeMediaServer from 'node-media-server';
+import express from 'express';
+import path from 'path';
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-
-const app = express();
-app.use(cors());
-export const appPort = 3000; /* 32768 */
-
-const webcamOptions = {
-  width: 1280,
-  height: 720,
-  quality: 100,
-  saveShots: true,
-  output: "jpeg",
-  device: false,
-  callbackReturn: "location",
-  verbose: false,
+const config = {
+  rtmp: {
+    port: 1935,
+    chunk_size: 60000,
+    gop_cache: true,
+    ping: 30,
+    ping_timeout: 60
+  },
+  http: {
+    port: 18000,
+    allow_origin: '*'
+  }
 };
 
-const webcam = NodeWebcam.create(webcamOptions);
+const nms = new NodeMediaServer(config);
+nms.run();
 
-app.use(express.static("public"));
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
+const app = express();
+const __dirname = path.resolve();
+
+app.use('/hls', express.static(path.join(__dirname, 'output')));
+
+app.listen(8080, () => {
+  console.log('HTTP server running on port 8080');
 });
 
-app.get("/capture", (req, res) => {
-  const imgPath = path.resolve(__dirname, "public/capture.jpg");
+/*
+ffmpeg -f gdigrab -framerate 30 -i desktop -c:v libx264 -preset ultrafast -f flv rtmp://localhost:1935/live/stream
+and then
+mkdir -p /path/to/output
+ffmpeg -i rtmp://localhost:1935/live/stream -c:v libx264 -crf 23 -preset veryfast -c:a aac -strict -2 -f hls -hls_time 2 -hls_list_size 3 /path/to/output/output.m3u8
 
-  NodeWebcam.capture(imgPath, webcamOptions, (err, data) => {
-    if (err) {
-      console.log(err);
-      return res.status(500).send("Error capturing image");
-    }
-    res.sendFile(imgPath);
-  });
-});
-
-app.get('/stream', (req, res) => {
-  const filePath = path.resolve('output.mp4');
-  res.sendFile(filePath);
-});
-
-
-/* app.get('/stream', (req, res) => {
-  res.setHeader('Content-Type', 'video/x-flv');
-
-  http.get('http://localhost:8081/feed1.ffm', (streamRes) => {
-    // Check if the request was successful
-    if (streamRes.statusCode !== 200) {
-      res.sendStatus(streamRes.statusCode);
-      return;
-    }
-    // Pipe the stream response to the client
-    streamRes.pipe(res);
-  }).on('error', (err) => {
-    console.error('Error fetching stream:', err);
-    res.sendStatus(500);
-  });
-}); */
-
-/* app.get("/stream", async (req, res) => {
-  try {
-    const imgBuffer = await screen({
-      format: "jpeg",
-      quality: 100,
-    });
-
-    const compressedImgBuffer = await sharp(imgBuffer).jpeg({ quality: 30 }).toBuffer();
-
-    res.set("Content-Type", "image/jpeg");
-    res.set("Cache-Control", "no-cache");
-    res.set("Connection", "keep-alive");
-
-    res.send(compressedImgBuffer);
-  } catch (err) {
-    console.error("Error capturing screen:", err);
-    res.status(500).send("Error capturing screen");
-  }
-}); */
-
-app.listen(appPort, () => {
-  console.log(`App listening at http://localhost:${appPort}`);
-});
-
-export const myExpress = {};
-myExpress.start = () => {};
+/*

@@ -17,6 +17,7 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.19.2",
+    "node-media-server": "^2.7.0",
     "node-webcam": "^0.8.2",
     "screenshot-desktop": "^1.15.0",
     "sharp": "^0.33.4"
