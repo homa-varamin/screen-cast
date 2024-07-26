@@ -35,4 +35,4 @@ and then
 mkdir -p /path/to/output
 ffmpeg -i rtmp://localhost:1935/live/stream -c:v libx264 -crf 23 -preset veryfast -c:a aac -strict -2 -f hls -hls_time 2 -hls_list_size 3 /path/to/output/output.m3u8
 
-/*
+*/
