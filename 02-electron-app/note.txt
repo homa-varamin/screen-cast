@@ -1,3 +1,10 @@
+saving ts file is doing ok.
+next steps:
+server .mp4 file as stream. 
+serve ts file instead of mp4 file
+sevrve memory stream instead of file.
+
+
 ffmpeg -f gdigrab -framerate 30 -i desktop -c:v libx264 -preset ultrafast -f flv rtmp://your-streaming-server/live/stream
 
 ***
